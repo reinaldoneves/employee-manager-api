@@ -1,5 +1,6 @@
 package br.com.naldo.employeemanager.service;
 
+import br.com.naldo.employeemanager.exception.UserNotFoundException;
 import br.com.naldo.employeemanager.model.Employee;
 import br.com.naldo.employeemanager.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class EmployeeService {
     }
 
     public Employee findEmployeeById(Long id){
-        return repo.findEmployeeById(id).orElseThrow();
+        return repo.findEmployeeById(id)
+                .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
     }
 
 }
